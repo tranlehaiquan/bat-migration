@@ -1,0 +1,170 @@
+query ja($filter: EQLQueryFilterJobAllocations) {
+  jobAllocations(filter: $filter) {
+    edges {
+      node {
+        UID
+        Name
+        JobId
+        ResourceId
+        TeamLeader
+        Status
+      }
+    }
+  }
+}
+
+query jobs($filter: EQLQueryFilterJobs) {
+  jobs(filter: $filter) {
+    edges {
+      node {
+        UID
+        Name
+        Address
+        Timezone
+        Type
+        CustomerJobNo
+        AccountId
+        Start
+        End
+        PM
+      }
+    }
+  }
+}
+
+query timesheetRS($filter: EQLQueryFilterTimesheetResource) {
+  timesheetResource(filter: $filter) {
+    edges {
+      node {
+        UID
+        Name
+        TimesheetId
+        EmployeeId
+        # LeaveFromCompanyYard
+        # DriveCompanyVehicleToSite
+        # DriveTimeStart
+        # Truck
+        # CheckInAtJobSiteTime
+        # JobStartTime
+        # JobCompleteTime
+        # RestBreaksTaken
+        # NoBreaksTakenReason
+        # MealPeriod1Taken
+        # MealPeriod1WhileDriving
+        # MealPeriod1OutTime
+        # MealPeriod1InTime
+        # NoMealPeriod1Reason
+        # MealPeriod2Taken
+        # MealPeriod2WhileDriving
+        # MealPeriod2OutTime
+        # MealPeriod2InTime
+        # NoMealPeriod2Reason
+        # ReturnToCompanyYard
+        # DriveCompanyVehicleFromSite
+        # DriveTimeEnd
+        # TruckEnd
+        # EmployeeSignature
+        # Status
+        # CheckInAtJobLocationTime
+      }
+    }
+  }
+}
+
+query timesheets($filter: EQLQueryFilterTimesheet, $after: Base64) {
+  timesheet(filter: $filter, after: $after) {
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    totalCount
+    edges {
+      node {
+        UID
+        Name
+        TimesheetType
+        TimesheetStatus
+        ReasonForTimesheet
+        JobId
+        CustomerId
+        DayOfTheWeek
+        JobDate
+        JobType
+        JobAddress
+        CreatedDate
+        LastModifiedDate
+        CustomerJobNumberPMNumber
+        LeadComments
+        CustomerComments
+        CustomerNotAvailable
+        CustomerSignature
+        SignatureName
+        SignDate
+        PDFEmailAddress
+        PDFEmailAddress2
+        PDFEmailAddress3
+        PDFEmailAddress4
+        CreatedBy
+        CreatedById
+        TimesheetType
+        TimesheetCompletedDateTime
+
+        Job {
+          Name
+        }
+
+        RelatedResources
+      }
+    }
+  }
+}
+
+query resources($filter: EQLQueryFilterResources) {
+  resources(filter: $filter) {
+    edges {
+      node {
+        UID
+        Name
+        Category
+        ADPEmployeeID
+        PrimaryRegion {
+          UID
+        }
+      }
+    }
+  }
+}
+
+query TimesheetMaterial {
+  timesheetMaterial(orderBy: "CreatedDate DESC") {
+    edges {
+      node {
+        UID
+        AssetPartNumber
+        AssetType
+        Equipment
+        EquipmentQuantity
+        MaterialType
+        Name
+        SkedTimesheetId
+      }
+    }
+  }
+}
+
+query accounts($filter: EQLQueryFilterAccounts) {
+  accounts(filter: $filter) {
+    edges {
+      node {
+        UID
+        Name
+      }
+    }
+  }
+}
+
+mutation updateTimesheet ($input: UpdateTimesheet!) {
+  schema {
+    updateTimesheet(input: $input)
+  }
+}
